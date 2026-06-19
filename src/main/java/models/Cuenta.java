@@ -8,10 +8,6 @@ public class Cuenta {
     private String apellido2;
     private Role role;
 
-    /* Constructor vacio para JPA */
-    public Cuenta() {
-    }
-
     public Cuenta(int id, String nombre, String apellido, String apellido2) {
         this.id = id;
         this.nombre = nombre;
