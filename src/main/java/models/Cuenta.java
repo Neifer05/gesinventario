@@ -1,15 +1,8 @@
 package models;
 import models.enums.Role;
-import jakarta.persistence.*;
 
-
-@Entity
-@Table(name = "Cuenta")
 public class Cuenta {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private int id;
     private String nombre;
     private String apellido;
     private String apellido2;
@@ -19,7 +12,8 @@ public class Cuenta {
     public Cuenta() {
     }
 
-    public Cuenta(String nombre, String apellido, String apellido2) {
+    public Cuenta(int id, String nombre, String apellido, String apellido2) {
+        this.id = id;
         this.nombre = nombre;
         this.apellido = apellido;
         this.apellido2 = apellido2;
@@ -39,7 +33,7 @@ public class Cuenta {
         this.role = role;
     }
 
-    public Long getId() {
+    public int getId() {
         return id;
     }
     public String getNombre() {
