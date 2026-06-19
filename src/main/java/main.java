@@ -1,9 +1,11 @@
 import controller.controladorDB;
+import controller.controladorMemory;
 import view.tui;
 
 public class main {
     public static void main(String[] args) {
-        controladorDB c = new controladorDB();
+        controladorMemory cMemory = new controladorMemory();
+        controladorDB c = new controladorDB(cMemory);
         tui t = new tui();
         c.connect();
         t.menuInicioMain();

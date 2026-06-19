@@ -2,23 +2,19 @@ package controller;
 
 import models.Cuenta;
 import java.sql.*;
-import java.util.HashMap;
-import java.util.Map;
-
 public class controladorDB {
-    private Map<Integer, Cuenta>listadoCuenta = new HashMap<>();
+    private controladorMemory cMemory;
+    private Connection conn;
     private final String url = "jdbc:sqlite:src/main/resources/database.db";
     private final String queryCount = "SELECT count(*) from usuarios";
-    private Connection conn;
-    private int lastID = 0;
 
-
-    public controladorDB() {
+    public controladorDB(controladorMemory cMemory) {
+        this.cMemory = cMemory;
     }
 
     public void connect() {
         try {
-            this.conn = DriverManager.getConnection(url)
+            this.conn = DriverManager.getConnection(url);
             System.out.println("Conexión establecida.");
             crearTablas(conn);
             obtenerUltimoID(conn);
@@ -50,20 +46,15 @@ public class controladorDB {
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(queryCount)) {
             if (rs.next()) {
-                lastID = rs.getInt(1);
+                cMemory.setLastID(rs.getInt(1));
             }
         }
-    }
-
-    public int getLastID() {
-        return lastID;
     }
 
     // NOTE: Funciones de usuarios.
     public void crearCuenta (String nombre, String apellido, String apellido2, String email, String password) {
         String sqlInsert = "INSERT INTO usuarios (nombre, apellido, apellido2, email, password, role) VALUES (?, ?, ?, ?, ?, ?)";
-        Cuenta c = new Cuenta(lastID + 1, nombre, apellido, apellido2, email, password);
-        listadoCuenta.put(c.getId(), c);
+        Cuenta c = cMemory.crearCuenta(nombre, apellido, apellido2, email, password);
 
         try (PreparedStatement pstmt = conn.prepareStatement(sqlInsert)) {
             pstmt.setString(1, c.getNombre());
