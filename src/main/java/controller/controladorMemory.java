@@ -7,6 +7,14 @@ public class controladorMemory {
     private Map<Integer, Cuenta> listadoCuenta = new HashMap<>();
     private int lastID = 0;
 
+    public void cargarCuentasMemory (int id, String nombre, String apellido, String apellido2, String email, String password, String roleString) {
+        Cuenta c = new Cuenta(id, nombre, apellido, apellido2, email, password);
+
+        // Conversion de String al enum del rol.
+        c.setRole(models.enums.Role.valueOf(roleString));
+        listadoCuenta.put(c.getId(), c);
+    }
+
     public Cuenta crearCuenta (String nombre, String apellido, String apellido2, String email, String password) {
         this.lastID++;
         Cuenta c = new Cuenta(this.lastID, nombre, apellido, apellido2, email, password);
@@ -16,6 +24,9 @@ public class controladorMemory {
 
     public int getLastID() {
         return lastID;
+    }
+    public Map<Integer, Cuenta> getListadoCuenta() {
+        return listadoCuenta;
     }
     public void setLastID(int lastID) {
         this.lastID = lastID;

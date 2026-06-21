@@ -1,12 +1,13 @@
 package controller;
 
 import models.Cuenta;
+
+import javax.xml.transform.Result;
 import java.sql.*;
 public class controladorDB {
     private controladorMemory cMemory;
     private Connection conn;
     private final String url = "jdbc:sqlite:src/main/resources/database.db";
-    private final String queryCount = "SELECT count(*) from usuarios";
 
     public controladorDB(controladorMemory cMemory) {
         this.cMemory = cMemory;
@@ -43,11 +44,31 @@ public class controladorDB {
     }
 
     private void obtenerUltimoID (Connection conn) throws SQLException {
+        String queryCount = "SELECT count(*) from usuarios";
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(queryCount)) {
             if (rs.next()) {
                 cMemory.setLastID(rs.getInt(1));
             }
+        }
+    }
+
+    private void cargarCuentasDB () {
+        String sqlSelect = "SELECT * FROM usuarios";
+        try (Statement stmt = this.conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sqlSelect)) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nombre = rs.getString("nombre");;
+                String apellido = rs.getString("apellido");;
+                String apellido2 = rs.getString("apellido2");
+                String email = rs.getString("email");
+                String password = rs.getString("password");
+                String roleString = rs.getString("role");
+                cMemory.cargarCuentasMemory(id, nombre, apellido, apellido2, email, password, roleString);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 
