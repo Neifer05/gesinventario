@@ -2,7 +2,6 @@ package controller;
 
 import models.Cuenta;
 
-import javax.xml.transform.Result;
 import java.sql.*;
 public class controladorDB {
     private controladorMemory cMemory;

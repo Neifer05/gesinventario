@@ -18,8 +18,18 @@ public class main {
                     c.crearCuenta(datos[0], datos[1], datos[2], datos[3], datos[4]);
                     break;
                 case 2:
+                    opcion = t.menuGesInventarioMain();
+                    switch (opcion) {
+                        case 1 -> System.out.println();
+                        case 9 -> { t.salirAgendaMenuPrincipal(); continue; }
+                        default -> t.opcionNoValida();
+                    }
+                case 4:
                     t.salirAgendaMenuPrincipal();
                     break bucle_principal;
+                default: {
+                    t.opcionNoValida();
+                }
             }
         }
     }

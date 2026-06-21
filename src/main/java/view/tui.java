@@ -13,8 +13,30 @@ public class tui {
         int opcion = 0;
         System.out.println("""
                     /////MENU DE INICIO/////
-                    1. Crear cuenta.
-                    2. Salir.
+                    1. Registra una nueva cuenta.
+                    2. Gestionar inventario.
+                    3. Gestionar accesos (admins).
+                    4. Salir.
+                    ///////////////////////
+                    """
+        );
+        opcion = Integer.parseInt(sc.nextLine());
+        return opcion;
+    }
+
+    public int menuGesInventarioMain() { /* Cambiar por menu de instalacion (condicinal)*/
+        int opcion = 0;
+        System.out.println("""
+                    /////MENU DE INICIO/////
+                    1. Añadir una nueva existencia.
+                    2. Ver existencias.
+                    3. Modificar existencia.
+                    4. Añadir stock a existencia.
+                    5. Quitar stock a existencia
+                    6. Borrar existencia.
+                    7. Exportar existencias (archivo .txt)
+                    8. Importar existencias (archivo .txt)
+                    9. Salir
                     ///////////////////////
                     """
         );
@@ -23,8 +45,9 @@ public class tui {
     }
 
     public void salirAgendaMenuPrincipal () {
-        System.out.println("Estás saliendo de la agenda..");
+        System.out.println("Estás saliendo del menu..");
     }
+    public void opcionNoValida () { System.out.println("La opción que seleccionaste no es válida."); }
 
     public String[] datosFormulario () {
         System.out.println("Ingresa tu nombre: ");
