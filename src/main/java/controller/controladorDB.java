@@ -35,10 +35,23 @@ public class controladorDB {
                 role TEXT NOT NULL CHECK(role IN ('ADMIN', 'EMPLEADO'))
                 );
                 """;
+        String sqlProductos = """
+                CREATE TABLE IF NOT EXISTS productos (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    nombreProducto TEXT NOT NULL,
+                    descripcion TEXT NOT NULL,
+                    precio REAL NOT NULL,
+                    stock INTEGER NOT NULL,
+                    stockMinimo INTEGER NOT NULL,
+                    caducable INTEGER NOT NULL CHECK (caducable IN (0, 1)),
+                    tipoproducto TEXT NOT NULL CHECK(tipoproducto IN ('TECNOLOGIA', 'HERRAMIENTA', 'MUEBLE', 'UTENSILIO', 'PERSONAL'))
+                );
+                """;
 
         try (Statement stmt = conn.createStatement()) {
             stmt.execute(sqlUsuarios);
-            System.out.println("Tabla verificada.");
+            stmt.execute(sqlProductos);
+            System.out.println("Tablas verificadas.");
         }
     }
 
