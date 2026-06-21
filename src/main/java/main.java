@@ -8,6 +8,19 @@ public class main {
         controladorDB c = new controladorDB(cMemory);
         tui t = new tui();
         c.connect();
-        t.menuInicioMain();
+
+        bucle_principal:
+        while (true) {
+            int opcion = t.menuInicioMain();
+            switch (opcion) {
+                case 1:
+                    String[] datos = t.datosFormulario();
+                    c.crearCuenta(datos[0], datos[1], datos[2], datos[3], datos[4]);
+                    break;
+                case 2:
+                    t.salirAgendaMenuPrincipal();
+                    break bucle_principal;
+            }
+        }
     }
 }
