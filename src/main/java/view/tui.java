@@ -38,7 +38,6 @@ public class tui {
         System.out.println("Ingresa tu contraseña: ");
         String contraseña = sc.nextLine();
 
-        String[] datos = {nombre, apellido, apellido2, email, contraseña};
-        return datos;
+        return new String[]{nombre, apellido, apellido2, email, contraseña};
     }
 }
