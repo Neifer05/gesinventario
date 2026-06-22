@@ -11,25 +11,52 @@ public class main {
 
         bucle_principal:
         while (true) {
-            int opcion = t.menuInicioMain();
-            switch (opcion) {
+            int opcionPrincipal = t.menuInicioMain();
+            switch (opcionPrincipal) {
                 case 1:
                     String[] datos = t.datosFormulario();
                     c.crearCuenta(datos[0], datos[1], datos[2], datos[3], datos[4]);
                     break;
                 case 2:
-                    opcion = t.menuGesInventarioMain();
-                    switch (opcion) {
-                        case 1 -> System.out.println();
-                        case 9 -> { t.salirAgendaMenuPrincipal(); continue; }
-                        default -> t.opcionNoValida();
-                    }
+                    gestionarFlujoInventario(t);
+                    break;
                 case 4:
                     t.salirAgendaMenuPrincipal();
                     break bucle_principal;
-                default: {
+                default:
                     t.opcionNoValida();
+                    break;
+            }
+        }
+    }
+    private static void gestionarFlujoInventario (tui t) {
+        while (true) {
+            int opcionInventario = t.subMenuGesInventarioMain();
+
+            switch (opcionInventario) {
+                case 1:
+                    int opcionAnadir = t.subMenuGesInvAñadir();
+                    switch (opcionAnadir) {
+                        case 1 -> System.out.println("Añadiendo nuevo producto...");
+                        case 2 -> System.out.println("Añadiendo producto en venta...");
+                        case 3 -> {} // Evitar que caiga en default.
+                    }
+                    break;
+                case 2:
+                    int opcionVer = t.subMenuGesVerExistencia();
+                    switch (opcionVer) {
+                        case 1 -> System.out.println("Mostrando todos los productos...");
+                        case 2 -> System.out.println("Mostrando productos en venta...");
+                        case 3 -> {}
+                    }
+                    break;
+                case 9: {
+                    System.out.println("Volviendo al menu principal."); //TODO: Cambiar para que la tui lo gestione.
+                    return;
                 }
+                default:
+                    t.opcionNoValida();
+                    break;
             }
         }
     }

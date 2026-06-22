@@ -24,7 +24,7 @@ public class tui {
         return opcion;
     }
 
-    public int menuGesInventarioMain() { /* Cambiar por menu de instalacion (condicinal)*/
+    public int subMenuGesInventarioMain() { /* Cambiar por menu de instalacion (condicinal)*/
         int opcion = 0;
         System.out.println("""
                     /////MENU DE INICIO/////
@@ -37,6 +37,34 @@ public class tui {
                     7. Exportar existencias (archivo .txt)
                     8. Importar existencias (archivo .txt)
                     9. Salir
+                    ///////////////////////
+                    """
+        );
+        opcion = Integer.parseInt(sc.nextLine());
+        return opcion;
+    }
+
+    public int subMenuGesInvAñadir () {
+        int opcion = 0;
+        System.out.println("""
+                    /////MENU DE INICIO/////
+                    1. Añadir un nuevo producto.
+                    2. Añadir producto en venta.
+                    3. Salir.
+                    ///////////////////////
+                    """
+        );
+        opcion = Integer.parseInt(sc.nextLine());
+        return opcion;
+    }
+
+    public int subMenuGesVerExistencia () {
+        int opcion = 0;
+        System.out.println("""
+                    /////MENU DE INICIO/////
+                    1. Ver todos los productos.
+                    2. Ver los productos en venta.
+                    3. Salir.
                     ///////////////////////
                     """
         );
