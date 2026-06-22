@@ -13,13 +13,13 @@ public class tui {
         int opcion = 0;
         System.out.println("""
                     /////MENU DE INICIO/////
-                    1. Registra una nueva cuenta.
+                    1. Ver stock de existencias.
                     2. Gestionar inventario.
-                    3. Gestionar accesos (admins).
+                    3. Panel de administración (admins).
                     4. Salir.
                     ///////////////////////
                     """
-        );
+        ); // TODO: Agregar menu de inicio de sesion y condicional de mostrar este menu si estás logueado o no.
         opcion = Integer.parseInt(sc.nextLine());
         return opcion;
     }
