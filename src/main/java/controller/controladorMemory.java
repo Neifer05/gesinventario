@@ -22,6 +22,15 @@ public class controladorMemory {
         return c;
     }
 
+    public Cuenta iniciarSesion (String email, String password) {
+        for (Cuenta c : listadoCuenta.values()) {
+            if (c.getEmail().equalsIgnoreCase(email) && c.getPassword().equals(password)) {
+                return c;
+            }
+        }
+        return null;
+    }
+
     public int getLastID() {
         return lastID;
     }

@@ -65,7 +65,7 @@ public class controladorDB {
         }
     }
 
-    private void cargarCuentasDB () {
+    public void cargarCuentasDB () {
         String sqlSelect = "SELECT * FROM usuarios";
         try (Statement stmt = this.conn.createStatement();
              ResultSet rs = stmt.executeQuery(sqlSelect)) {

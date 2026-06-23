@@ -1,27 +1,58 @@
 package view;
 
+import models.enums.Role;
 import java.util.Scanner;
 
 public class tui {
     Scanner sc = new Scanner(System.in);
 
-    void mensajeErrorExcepcion(Exception e) {
-        System.out.println(e.getMessage());
+    public void mensajeErrorExcepcion(String e) {
+        System.out.println(e);
     }
 
-    public int menuInicioMain() { /* Cambiar por menu de instalacion (condicinal)*/
-        int opcion = 0;
+    public String[] formularioIngreso () {
+        System.out.print("Email: ");
+        String email = sc.nextLine();
+        System.out.print("Contraseña: ");
+        String pass = sc.nextLine();
+        return new String[]{email, pass};
+    }
+
+    public String[] datosFormulario () {
+        System.out.println("Ingresa tu nombre: ");
+        String nombre = sc.nextLine();
+        System.out.println("Ingresa tu apellido: ");
+        String apellido = sc.nextLine();
+        System.out.println("Ingresa tu segundo apellido: ");
+        String apellido2 = sc.nextLine();
+        System.out.println("Ingresa tu correo electrónico: ");
+        String email = sc.nextLine();
+        System.out.println("Ingresa tu contraseña: ");
+        String contraseña = sc.nextLine();
+
+        return new String[]{nombre, apellido, apellido2, email, contraseña};
+    }
+
+    public int formularioIngresoCabecera () {
+        System.out.println("Estás en el apartado de ingreso..");
         System.out.println("""
-                    /////MENU DE INICIO/////
-                    1. Ver stock de existencias.
-                    2. Gestionar inventario.
-                    3. Panel de administración (admins).
-                    4. Salir.
-                    ///////////////////////
-                    """
-        ); // TODO: Agregar menu de inicio de sesion y condicional de mostrar este menu si estás logueado o no.
-        opcion = Integer.parseInt(sc.nextLine());
-        return opcion;
+                -> Ingrese [1] para iniciar sesión.
+                -> Ingrese [2] para registrarse.
+                """);
+        return Integer.parseInt(sc.nextLine());
+    }
+
+    public int menuInicioMain(Role rolUsuario) {
+        System.out.println("\n///// MENU DE INICIO /////");
+        System.out.println("1. Registra una nueva cuenta.");
+        System.out.println("2. Gestionar inventario.");
+        if (rolUsuario == Role.ADMIN) {
+            System.out.println("3. Gestionar accesos (admins).");
+        }
+        System.out.println("4. Salir.");
+        System.out.println("//////////////////////////");
+
+        return Integer.parseInt(sc.nextLine());
     }
 
     public int subMenuGesInventarioMain() { /* Cambiar por menu de instalacion (condicinal)*/
@@ -76,19 +107,4 @@ public class tui {
         System.out.println("Estás saliendo del menu..");
     }
     public void opcionNoValida () { System.out.println("La opción que seleccionaste no es válida."); }
-
-    public String[] datosFormulario () {
-        System.out.println("Ingresa tu nombre: ");
-        String nombre = sc.nextLine();
-        System.out.println("Ingresa tu apellido: ");
-        String apellido = sc.nextLine();
-        System.out.println("Ingresa tu segundo apellido: ");
-        String apellido2 = sc.nextLine();
-        System.out.println("Ingresa tu correo electrónico: ");
-        String email = sc.nextLine();
-        System.out.println("Ingresa tu contraseña: ");
-        String contraseña = sc.nextLine();
-
-        return new String[]{nombre, apellido, apellido2, email, contraseña};
-    }
 }

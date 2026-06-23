@@ -1,5 +1,8 @@
 import controller.controladorDB;
 import controller.controladorMemory;
+import exceptions.InvalidAccountException;
+import models.Cuenta;
+import models.enums.Role;
 import view.tui;
 
 public class main {
@@ -8,17 +11,46 @@ public class main {
         controladorDB c = new controladorDB(cMemory);
         tui t = new tui();
         c.connect();
+        c.cargarCuentasDB();
+        Cuenta cuentaLogueada = null;
+
+        while (cuentaLogueada == null) {
+            int seleccion = t.formularioIngresoCabecera();
+            switch (seleccion) {
+                case 1: {
+                    try {
+                        String []datosIngreso = t.formularioIngreso();
+                        cuentaLogueada = cMemory.iniciarSesion(datosIngreso[0], datosIngreso[1]);
+                        if (cuentaLogueada == null) {
+                            throw new InvalidAccountException("Los datos de inicio de sesión no son correctos o la cuenta no existe.");
+                        }
+                        break;
+                    } catch (InvalidAccountException e) {
+                        t.mensajeErrorExcepcion(e.getMessage());
+                    }
+                    break;
+                }
+                case 2: {
+                    String []datosRegistro = t.datosFormulario();
+                    c.crearCuenta(datosRegistro[0], datosRegistro[1], datosRegistro[2], datosRegistro[3], datosRegistro[4]);
+                    break;
+                }
+            }
+        }
 
         bucle_principal:
         while (true) {
-            int opcionPrincipal = t.menuInicioMain();
+            int opcionPrincipal = t.menuInicioMain(cuentaLogueada.getRole());
             switch (opcionPrincipal) {
                 case 1:
-                    String[] datos = t.datosFormulario();
-                    c.crearCuenta(datos[0], datos[1], datos[2], datos[3], datos[4]);
                     break;
                 case 2:
                     gestionarFlujoInventario(t);
+                    break;
+                case 3:
+                    if (cuentaLogueada.getRole() == Role.ADMIN) {
+                        System.out.println("Abriendo panel de administrador.");
+                    }
                     break;
                 case 4:
                     t.salirAgendaMenuPrincipal();
