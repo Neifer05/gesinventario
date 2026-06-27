@@ -6,6 +6,7 @@ import java.util.Map;
 public class controladorMemory {
     private Map<Integer, Cuenta> listadoCuenta = new HashMap<>();
     private int lastID = 0;
+    private Cuenta cuentaLogueada = null;
 
     public void cargarCuentasMemory (int id, String nombre, String apellido, String apellido2, String email, String password, String roleString) {
         Cuenta c = new Cuenta(id, nombre, apellido, apellido2, email, password);
@@ -37,7 +38,13 @@ public class controladorMemory {
     public Map<Integer, Cuenta> getListadoCuenta() {
         return listadoCuenta;
     }
+    public Cuenta getCuentaLogueada() {
+        return cuentaLogueada;
+    }
     public void setLastID(int lastID) {
         this.lastID = lastID;
+    }
+    public void setCuentaLogueada(Cuenta cuentaLogueada) {
+        this.cuentaLogueada = cuentaLogueada;
     }
 }

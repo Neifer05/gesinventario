@@ -12,16 +12,15 @@ public class main {
         tui t = new tui();
         c.connect();
         c.cargarCuentasDB();
-        Cuenta cuentaLogueada = null;
 
-        while (cuentaLogueada == null) {
+        while (cMemory.getCuentaLogueada() == null) {
             int seleccion = t.formularioIngresoCabecera();
             switch (seleccion) {
                 case 1: {
                     try {
                         String []datosIngreso = t.formularioIngreso();
-                        cuentaLogueada = cMemory.iniciarSesion(datosIngreso[0], datosIngreso[1]);
-                        if (cuentaLogueada == null) {
+                        cMemory.setCuentaLogueada(cMemory.iniciarSesion(datosIngreso[0], datosIngreso[1]));
+                        if (cMemory.getCuentaLogueada() == null) {
                             throw new InvalidAccountException("Los datos de inicio de sesión no son correctos o la cuenta no existe.");
                         }
                         break;
@@ -40,7 +39,7 @@ public class main {
 
         bucle_principal:
         while (true) {
-            int opcionPrincipal = t.menuInicioMain(cuentaLogueada.getRole());
+            int opcionPrincipal = t.menuInicioMain(cMemory.getCuentaLogueada().getRole());
             switch (opcionPrincipal) {
                 case 1:
                     break;
@@ -48,7 +47,7 @@ public class main {
                     gestionarFlujoInventario(t);
                     break;
                 case 3:
-                    if (cuentaLogueada.getRole() == Role.ADMIN) {
+                    if (cMemory.getCuentaLogueada().getRole() == Role.ADMIN) {
                         System.out.println("Abriendo panel de administrador.");
                     }
                     break;
