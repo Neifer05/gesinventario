@@ -44,7 +44,7 @@ public class tui {
 
     public int menuInicioMain(Role rolUsuario) {
         System.out.println("\n///// MENU DE INICIO /////");
-        System.out.println("1. Registra una nueva cuenta.");
+        System.out.println("1. Ver inventario y existencias.");
         System.out.println("2. Gestionar inventario.");
         if (rolUsuario == Role.ADMIN) {
             System.out.println("3. Gestionar accesos (admins).");

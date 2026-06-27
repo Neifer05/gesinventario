@@ -11,7 +11,6 @@ public class main {
         controladorDB c = new controladorDB(cMemory);
         tui t = new tui();
         c.connect();
-        c.cargarCuentasDB();
 
         while (cMemory.getCuentaLogueada() == null) {
             int seleccion = t.formularioIngresoCabecera();

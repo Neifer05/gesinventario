@@ -17,7 +17,9 @@ public class controladorDB {
             this.conn = DriverManager.getConnection(url);
             System.out.println("Conexión establecida.");
             crearTablas(conn);
-            obtenerUltimoID(conn);
+            obtenerUltimoIDAccount(conn);
+            obtenerUltimoIDProducto(conn);
+            cargarDataBase();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -55,29 +57,57 @@ public class controladorDB {
         }
     }
 
-    private void obtenerUltimoID (Connection conn) throws SQLException {
+    private void obtenerUltimoIDAccount (Connection conn) throws SQLException {
         String queryCount = "SELECT count(*) from usuarios";
         try (Statement stmt = conn.createStatement();
              ResultSet rs = stmt.executeQuery(queryCount)) {
             if (rs.next()) {
-                cMemory.setLastID(rs.getInt(1));
+                cMemory.setLastIDAccount(rs.getInt(1));
             }
         }
     }
 
-    public void cargarCuentasDB () {
+    private void obtenerUltimoIDProducto (Connection conn) throws SQLException {
+        String queryCount = "SELECT count(*) from productos";
+        try (Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(queryCount)) {
+            if (rs.next()) {
+                cMemory.setLastIDProducto(rs.getInt(1));
+            }
+        }
+    }
+
+    public void cargarDataBase () {
         String sqlSelect = "SELECT * FROM usuarios";
+        String sqlProductos = "SELECT * FROM productos";
         try (Statement stmt = this.conn.createStatement();
              ResultSet rs = stmt.executeQuery(sqlSelect)) {
             while (rs.next()) {
                 int id = rs.getInt("id");
-                String nombre = rs.getString("nombre");;
-                String apellido = rs.getString("apellido");;
+                String nombre = rs.getString("nombre");
+                String apellido = rs.getString("apellido");
                 String apellido2 = rs.getString("apellido2");
                 String email = rs.getString("email");
                 String password = rs.getString("password");
                 String roleString = rs.getString("role");
                 cMemory.cargarCuentasMemory(id, nombre, apellido, apellido2, email, password, roleString);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        try (Statement stmt = this.conn.createStatement();
+        ResultSet rs = stmt.executeQuery(sqlProductos)) {
+            while (rs.next()) {
+                int id = rs.getInt("id");
+                String nombreProducto = rs.getString("nombreProducto");
+                String descripcion = rs.getString("descripcion");
+                float precio = rs.getFloat("precio");
+                int stock = rs.getInt("stock");
+                int stockMinimo = rs.getInt("stockMinimo");
+                int caducable = rs.getInt("caducable");
+                String tipoproducto = rs.getString("tipoproducto");
+                cMemory.cargarProductosMemory(id, nombreProducto, descripcion, precio, stock, stockMinimo, caducable, tipoproducto);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
