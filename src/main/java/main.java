@@ -1,6 +1,7 @@
 import controller.controladorDB;
 import controller.controladorMemory;
 import exceptions.InvalidAccountException;
+import models.Cuenta;
 import models.enums.Role;
 import view.tui;
 
@@ -16,7 +17,7 @@ public class main {
             switch (seleccion) {
                 case 1: {
                     try {
-                        String []datosIngreso = t.formularioIngreso();
+                        String[] datosIngreso = t.formularioIngreso();
                         cMemory.setCuentaLogueada(cMemory.iniciarSesion(datosIngreso[0], datosIngreso[1]));
                         if (cMemory.getCuentaLogueada() == null) {
                             throw new InvalidAccountException("Los datos de inicio de sesión no son correctos o la cuenta no existe.");
@@ -28,7 +29,7 @@ public class main {
                     break;
                 }
                 case 2: {
-                    String []datosRegistro = t.datosFormulario();
+                    String []datosRegistro = gestionarFormularioRegistro(t);
                     c.crearCuenta(datosRegistro[0], datosRegistro[1], datosRegistro[2], datosRegistro[3], datosRegistro[4]);
                     break;
                 }
@@ -88,5 +89,71 @@ public class main {
                     break;
             }
         }
+    }
+    private static String[] gestionarFormularioRegistro (tui t) {
+        String[] datosVerificados = new String[5];
+        Cuenta c = new Cuenta(-1,"null", "null", "null", "null@com", "null1234" );
+
+        String nombre;
+        while (true) {
+            try {
+                nombre = t.registroNombre();
+                c.setNombre(nombre);
+                datosVerificados[0] = c.getNombre();
+                break;
+            } catch (RuntimeException e) {
+                t.mensajeErrorExcepcion(e.getMessage());
+            }
+        }
+
+        String apellido;
+        while (true) {
+            try {
+                apellido = t.registroApellido();
+                c.setApellido(apellido);
+                datosVerificados[1] = c.getApellido();
+                break;
+            } catch (RuntimeException e) {
+                t.mensajeErrorExcepcion(e.getMessage());
+            }
+        }
+
+        String apellido2;
+        while (true) {
+            try {
+                apellido2 = t.registroApellido2();
+                c.setApellido2(apellido2);
+                datosVerificados[2] = c.getApellido2();
+                break;
+            } catch (RuntimeException e) {
+                t.mensajeErrorExcepcion(e.getMessage());
+            }
+        }
+
+        String email;
+        while (true) {
+            try {
+                email = t.registroCorreo();
+                c.setEmail(email);
+                datosVerificados[3] = c.getEmail();
+                break;
+            } catch (RuntimeException e) {
+                t.mensajeErrorExcepcion(e.getMessage());
+            }
+        }
+
+        String password;
+        while (true) {
+            try {
+                password = t.registroContraseña();
+                c.setPassword(password);
+                datosVerificados[4] = c.getPassword();
+                break;
+            } catch (RuntimeException e) {
+                t.mensajeErrorExcepcion(e.getMessage());
+            }
+        }
+
+        return datosVerificados;
     }
 }

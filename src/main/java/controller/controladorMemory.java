@@ -1,4 +1,5 @@
 package controller;
+import exceptions.InvalidCampAccountException;
 import models.Cuenta;
 import models.Producto;
 
@@ -28,6 +29,11 @@ public class controladorMemory {
     }
 
     public Cuenta crearCuenta (String nombre, String apellido, String apellido2, String email, String password) {
+        for (Cuenta c : listadoCuenta.values()) {
+            if (c.getEmail().equalsIgnoreCase(email)) {
+                throw new InvalidCampAccountException("Este correo electrónico ya está siendo utilizado.");
+            }
+        }
         this.lastIDAccount++;
         Cuenta c = new Cuenta(this.lastIDAccount, nombre, apellido, apellido2, email, password);
         listadoCuenta.put(c.getId(), c);

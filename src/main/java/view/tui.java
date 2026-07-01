@@ -18,20 +18,31 @@ public class tui {
         return new String[]{email, pass};
     }
 
-    public String[] datosFormulario () {
+    public String registroNombre () {
         System.out.println("Ingresa tu nombre: ");
-        String nombre = sc.nextLine();
-        System.out.println("Ingresa tu apellido: ");
-        String apellido = sc.nextLine();
-        System.out.println("Ingresa tu segundo apellido: ");
-        String apellido2 = sc.nextLine();
-        System.out.println("Ingresa tu correo electrónico: ");
-        String email = sc.nextLine();
-        System.out.println("Ingresa tu contraseña: ");
-        String contraseña = sc.nextLine();
-
-        return new String[]{nombre, apellido, apellido2, email, contraseña};
+        return sc.nextLine();
     }
+
+    public String registroApellido () {
+        System.out.println("Ingresa tu apellido: ");
+        return sc.nextLine();
+    }
+
+    public String registroApellido2 () {
+        System.out.println("Ingresa tu segundo apellido: ");
+        return sc.nextLine();
+    }
+
+    public String registroCorreo () {
+        System.out.println("Ingresa tu correo electrónico: ");
+        return sc.nextLine();
+    }
+
+    public String registroContraseña () {
+        System.out.println("Ingresa tu contraseña: ");
+        return sc.nextLine();
+    }
+
 
     public int formularioIngresoCabecera () {
         System.out.println("Estás en el apartado de ingreso..");
