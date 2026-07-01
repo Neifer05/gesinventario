@@ -1,7 +1,6 @@
 import controller.controladorDB;
 import controller.controladorMemory;
 import exceptions.InvalidAccountException;
-import models.Cuenta;
 import models.enums.Role;
 import view.tui;
 
