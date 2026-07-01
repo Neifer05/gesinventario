@@ -70,15 +70,15 @@ public class tui {
         int opcion = 0;
         System.out.println("""
                     /////MENU DE INICIO/////
-                    1. Añadir una nueva existencia.
-                    2. Ver existencias.
-                    3. Modificar existencia.
-                    4. Añadir stock a existencia.
-                    5. Quitar stock a existencia
-                    6. Borrar existencia.
-                    7. Exportar existencias (archivo .txt)
-                    8. Importar existencias (archivo .txt)
-                    9. Salir
+                    -> Ingrese [1] para añadir una nueva existencia.
+                    -> Ingrese [2] para ver existencias.
+                    -> Ingrese [3] para modificar existencia.
+                    -> Ingrese [4] para añadir stock a existencia.
+                    -> Ingrese [5] para quitar stock a existencia.
+                    -> Ingrese [6] para borrar existencia.
+                    -> Ingrese [7] para exportar existencias (archivo .txt).
+                    -> Ingrese [8] para importar existencias (archivo .txt)
+                    -> Ingrese [9] para salir del menú.
                     ///////////////////////
                     """
         );
