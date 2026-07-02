@@ -35,6 +35,15 @@ public class controladorMemory {
             }
         }
         this.lastIDAccount++;
+
+        for (int i = 0; i < listadoCuenta.size(); i++) {
+            if (listadoCuenta.containsKey(this.lastIDAccount)) {
+                this.lastIDAccount++;
+                break;
+            }
+        }
+        // Preever que cuando se borre, no de una misma Id. Cambiable a futuro.
+
         Cuenta c = new Cuenta(this.lastIDAccount, nombre, apellido, apellido2, email, password);
         listadoCuenta.put(c.getId(), c);
         return c;
